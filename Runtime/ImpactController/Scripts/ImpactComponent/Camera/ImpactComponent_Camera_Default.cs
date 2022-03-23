@@ -7,7 +7,7 @@ namespace JTools
     public class ImpactComponent_Camera_Default : ImpactComponent_Camera
     {
         [Header("Default - General")]
-        [Tooltip("Makes it possible to smoothly interpolate between first and third person cameras. 0 means first person, 1 means third person.")] [Range(0f, 1f)] public float perspective = 0f;
+        [Tooltip("Makes it possible to smoothly interpolate between first and third person cameras. 0 means first person, 1 means third person.")] [Range(0f, 0.5f)] public float perspective = 0f;
         [Space]
         [Tooltip("Whether or not the player camera should tilt when you move. Used commonly in fancy-shmancy FPS games. Camera tilting won't take effect in third person mode for obvious reasons.")] public bool cameraTilting = false;
         [Tooltip("How much tilt we should apply when the player is moving. This variable affects how much the camera rolls.")] public float cameraTiltRollPower = 5f;
@@ -20,6 +20,8 @@ namespace JTools
         [Range(0.1f, 1f)]
         [Tooltip("The lower this value is, the further down towards the ground the camera will drop when crouching. This specifically affects the player's camera height, and isn't related to collider height.")] public float cameraCrouchDrop = 1f;
         [Range(0.1f, 1f)]
+        [Tooltip("Higher values will bow the camera more upon landing a jump.")] public float cameraLandDrop = 0.2f;
+        [Range(0.0f, 1f)]
         [Tooltip("Changes how quickly the camera orients itself to face look targets. For more details, check out ImpactComponent_Camera's SetLookTarget method.")] public float lookTargetTrackingSpeed = 0.2f;
 
         [Header("Default - Viewbob")]
@@ -32,6 +34,9 @@ namespace JTools
 
         [Header("Default - Third Person")]
         [Tooltip("Defines which layers will occlude the camera. Defaults to everything.")] public LayerMask cameraOccluders = ~0;
+        [Tooltip("How much the camera is offset in third person, multiplied by perspective.")] public Vector3 thirdPersonCamOffset;
+
+        Vector3 stockPosition;//extra variable used to remember the actual camera origin before third-person offset.
         [Tooltip("If true, the system will always bring the camera close to the player if something is blocking it.\n\nIf false, the system won't bring the camera in if a non-kinematic rigidbody is between the player and the camera.")] public bool rigidbodyOcclusion = true;
         [Tooltip("How far the third person camera should be from the player while in third person mode.")] public float thirdPersonOrbitDistance = 5f;
 
@@ -69,6 +74,7 @@ namespace JTools
 
             cameraAngles = new Vector3(owner.playerCamera.transform.rotation.eulerAngles.x, owner.playerCamera.transform.rotation.eulerAngles.y, 0f); //Goal angles are based on the player camera's rotation.
             cameraOrigin = owner.playerCamera.transform.localPosition; //The camera's origin is cached so bobbing and landing effects can be applied without the camera losing its default position.
+            stockPosition = cameraOrigin;
 
             m_camPosTracer = cameraOrigin; //This is where the camera truly lies in a given frame.
             m_camPosTracerSecondary = m_camPosTracer;
@@ -132,7 +138,9 @@ namespace JTools
             // CAMERA MANAGEMENT
 
             cameraOrigin.y = m_cameraOriginBaseHeight * (player.capsuleCollider.height / player.playerHeight) * ((player.motionComponent.isCrouching) ? cameraCrouchDrop : 1f);
-
+            Vector3 OffsetCamPos = (Quaternion.AngleAxis(player.playerCamera.transform.rotation.eulerAngles.y, Vector3.up)*thirdPersonCamOffset);
+            cameraOrigin = OffsetCamPos*perspective+stockPosition;
+            //the above 2 messes are mine, they add the camera offset, I don't know why but it maximizes offset at 0.5 and it once again becomes 0 offset at 1 perspective.
 
             if (!player.inputComponent.lockInput)
             {
@@ -188,7 +196,7 @@ namespace JTools
 
         public void OnPlayerLanding(float intensity)
         {
-            m_camPosTracer -= Vector3.up * intensity * 0.2f; //If effects are enabled, the camera is bowed down for the landing.
+            m_camPosTracer -= Vector3.up * intensity * cameraLandDrop; //If effects are enabled, the camera is bowed down for the landing.
             m_camPosTracer.y = Mathf.Clamp(m_camPosTracer.y, -4f, 4f); //This effect is clamped to prevent the camera from bowing too low.
         }
 
