@@ -1,11 +1,11 @@
 All Credit Goes to FeverDevJohnny(John Ellis) for the original Impact Controller. This is my modded(dare I say improved) version. The added code may be a bit scuffed(hacky) on the inside but performance impact should be negligible and the UX is just as good as the original.
 
-##Additions
-- Customization: Camera Landing Bow
-- Feature: Third Person Camera Offset
+## Additions
+- Customization: Camera landing bow
+- Feature: Third-person camera offset
 - Toggle: Make player art always face camera
 
-##Details
+## Details
 - Camera Landing Bow
 This is normally unadjustable and I find it to be far too extreme, so I added a float that controls specifically that, defaults to the standard value of 0.2f
 - Third Person Camera Offset
