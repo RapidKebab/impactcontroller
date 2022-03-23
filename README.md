@@ -14,3 +14,7 @@ It's a bit of a janky implementation, but this does what it says on the tin. Whe
 This toggle makes your player art permanently face toward where your camera is looking, normally this is done only when aiming but now you have this toggle for first person games or third person where you may want to strafe or backpedal without having to aim(or if you don't want an aim button).
 
 Small note, this was the default behaviour of attaching art(or objects) to the controller previously but was lost when somewhere along the line it was made so that the player controller never actually rotates, regardless it was a simple thing to patch back in.
+
+## Wishlist(things I might add)
+- A toggle button that changes shoulders in TPS mode, should technically be a simple extra control and multiplying the x value of my offset by -1, but I have a feeling the hackiness of the offset is gonna make that look janky in real time.
+- Allow the player to go between first and third-person via scrollwheel a-la Fallout 3 and NV, should actually be relatively easy but I haven't looked at the input system at all yet and don't expect to make a 3rd person game soon.
