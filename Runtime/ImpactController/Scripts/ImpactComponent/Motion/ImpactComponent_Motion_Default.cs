@@ -199,7 +199,7 @@ namespace JTools
 
             if (player.playerArtRoot != null)
             {
-                if (player.inputComponent.inputData.holdingSecondary)
+                if (player.inputComponent.inputData.holdingSecondary || player.artFacesCam)
                 {
                     player.playerArtRoot.rotation = Quaternion.Slerp(player.playerArtRoot.rotation, Quaternion.Euler(0f, player.cameraComponent.cameraAngles.y, 0f), 0.2f * Time.deltaTime * 60f);
                 }
