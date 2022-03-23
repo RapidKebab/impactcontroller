@@ -7,7 +7,7 @@ All Credit Goes to Feverdream Johnny(John Ellis) for the original Impact Control
 
 ## Details
 #### Camera Landing Bow
-This is normally unadjustable and I find it to be far too extreme, so I added a float that controls specifically that, defaults to the standard value of 0.2f
+This is normally non-adjustable and I find it to be far too extreme, so I added a float that controls specifically that, defaults to the standard value of 0.2f
 #### Third Person Camera Offset
 It's a bit of a janky implementation, but this does what it says on the tin. When you are not in first person, your camera will be offset by this vector multiplied by the perspective slider(though it maxes around 0.5 perspective and goes back to 0 around 1, I do not know why and have hence limited the perspective slider to 0.5f)
 #### Player Art Toggle
