@@ -1,4 +1,4 @@
-All Credit Goes to FeverDevJohnny(John Ellis) for the original Impact Controller. This is my modded(dare I say improved) version. The added code may be a bit scuffed(hacky) on the inside but performance impact should be negligible and the UX is just as good as the original.
+All Credit Goes to Feverdream Johnny(John Ellis) for the original Impact Controller. This is my modded(dare I say improved) version. The added code may be a bit scuffed(hacky) on the inside but performance impact should be negligible and the UX is just as good as the original.
 
 ## Additions
 - Customization: Camera landing bow
