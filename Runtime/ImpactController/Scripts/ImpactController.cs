@@ -1,5 +1,4 @@
-﻿
-//Impact Player Controller Developed by John Ellis, 2021.
+﻿//Impact Player Controller Developed by John Ellis, 2021. Modified by O. Kaya, 2022. All original licensing applies.
 
 using System.Collections;
 using System.Collections.Generic;
@@ -20,6 +19,7 @@ namespace JTools
         [Header("Impact - General")]
         [Tooltip("A direct reference to the player's camera.")] public Camera playerCamera;
         [Tooltip("I strongly advise creating an empty gameobject rooted to the player, and assigning it to this. This is used to manage the player's body in third person.")] public Transform playerArtRoot;
+        [Tooltip("Tick this box to ensure your character art always looks toward where your camera is pointed")]public bool artFacesCam;
         [Min(0f)] public float playerRadius = 0.3f;
         [Min(0f)] public float playerHeight = 1.64f;
         [Space]
