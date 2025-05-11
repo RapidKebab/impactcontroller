@@ -61,7 +61,6 @@ MonoBehaviour:
   motionComponent: {fileID: 7439519253497224973}
   addonComponents:
   - {fileID: 1385654921943162104}
-  - {fileID: 0}
   lockFramerate: 1
   frameRate: 60
   capsuleCollider: {fileID: 0}
