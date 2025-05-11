@@ -53,7 +53,7 @@ MonoBehaviour:
   assignCurrent: 1
   playerCamera: {fileID: 1352007124570119575}
   playerArtRoot: {fileID: 1511621406499863036}
-  artFacesCam: 0
+  artFacesCam: 1
   playerRadius: 0.3
   playerHeight: 1.64
   inputComponent: {fileID: 442010529607440305}
