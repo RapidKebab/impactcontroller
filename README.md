@@ -1,6 +1,8 @@
 All Credit Goes to Feverdream Johnny(John Ellis) for the original Impact Controller. This is my modded(dare I say improved) version. The added code may be a bit scuffed(hacky) on the inside but performance impact should be negligible and the UX is just as good as the original.
 
 ## Additions
+- Modded default controller w/ sound, better values and different ground detection layer.
+- Input System: New Input System support!
 - Customization: Camera landing bow
 - Feature: Third-person camera offset
 - Toggle: Make player art always face camera
