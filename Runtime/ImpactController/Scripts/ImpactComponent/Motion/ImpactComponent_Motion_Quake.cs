@@ -82,7 +82,7 @@ namespace JTools
                 }
             }
 
-            m_lastGrav = m_rig.velocity.y; //The gravity from the last frame is set here. This is mostly used to compare against prior frame motion.
+            m_lastGrav = m_rig.linearVelocity.y; //The gravity from the last frame is set here. This is mostly used to compare against prior frame motion.
 
             m_lastPosition = transform.position;
 
@@ -90,7 +90,7 @@ namespace JTools
 
         public void AddForce(Vector3 force)
         {
-            m_rig.velocity += force;
+            m_rig.linearVelocity += force;
         }
 
         public override void ComponentInitialize(ImpactController player)
@@ -121,9 +121,9 @@ namespace JTools
             }
 
             if (!isGrounded)
-                m_rig.velocity = MoveAir(movement * 60f * Time.fixedDeltaTime, m_rig.velocity);
+                m_rig.linearVelocity = MoveAir(movement * 60f * Time.fixedDeltaTime, m_rig.linearVelocity);
             else
-                m_rig.velocity = MoveGround(movement * 60f * Time.fixedDeltaTime, m_rig.velocity);
+                m_rig.linearVelocity = MoveGround(movement * 60f * Time.fixedDeltaTime, m_rig.linearVelocity);
 
             //m_rig.velocity = movement * Time.fixedDeltaTime * 60f; //Movement is applied here. Motion is scaled on framerate to smooth things out.
 
@@ -200,11 +200,11 @@ namespace JTools
                 if (m_sliding)
                     m_canJump = false;
 
-                movement = ImpactController.RLerp(movement, orientation * new Vector3(player.inputComponent.inputData.motionInput.x * topSpeed, m_rig.velocity.y, player.inputComponent.inputData.motionInput.z * topSpeed), moveShiftRate * ((!isGrounded) ? airControl : 1f));
+                movement = ImpactController.RLerp(movement, orientation * new Vector3(player.inputComponent.inputData.motionInput.x * topSpeed, m_rig.linearVelocity.y, player.inputComponent.inputData.motionInput.z * topSpeed), moveShiftRate * ((!isGrounded) ? airControl : 1f));
 
             }
             else
-                movement = ImpactController.RLerp(movement, new Vector3(0f,m_rig.velocity.y,0f), moveShiftRate); //Assuming movement's locked, the player is recursively slowed down to zero.
+                movement = ImpactController.RLerp(movement, new Vector3(0f,m_rig.linearVelocity.y,0f), moveShiftRate); //Assuming movement's locked, the player is recursively slowed down to zero.
 
             ///
 
@@ -233,7 +233,7 @@ namespace JTools
                 {
                     if (slidingOnSlopes)
                     {
-                        if (m_rig.velocity.y < 0f)
+                        if (m_rig.linearVelocity.y < 0f)
                         {
                             if (Vector3.Angle(Vector3.up, normal) > slopeAngle) //If sliding on slopes is enabled, we check to see if the current surface is too steep. If so, the player can no longer jump, and they are shunted down the slope. If the slope isn't too steep, the player is then allowed to jump.
                             {
@@ -258,8 +258,8 @@ namespace JTools
 
 
             /// This snaps the player down to a surface if the conditions are just right. Needed on slopes to prevent the player from sliding off of a surface and floating down to the ground instead of, you know, walking down the slope like a normal human.
-            float snapDistance = (player.playerHeight * 0.5f) + Mathf.Clamp(m_rig.velocity.y, -1f, 0f); //How far down the player will search for snappable terrain.
-            if (!isGrounded && m_rig.velocity.y < 0f) //If we're midair and we're also falling down.
+            float snapDistance = (player.playerHeight * 0.5f) + Mathf.Clamp(m_rig.linearVelocity.y, -1f, 0f); //How far down the player will search for snappable terrain.
+            if (!isGrounded && m_rig.linearVelocity.y < 0f) //If we're midair and we're also falling down.
             {
                 if (Physics.Raycast(transform.position + Vector3.up * player.capsuleCollider.height * 0.5f, Vector3.down, out m_hit, snapDistance, groundingLayers, QueryTriggerInteraction.Ignore)) //A raycast is fired below the player.
                 {
@@ -303,20 +303,20 @@ namespace JTools
                 if (m_hit.collider.GetComponent<Rigidbody>() != null)
                 {
                     if (m_hit.collider.GetComponent<Rigidbody>().isKinematic)
-                        if (m_rig.velocity.y > 0f)
+                        if (m_rig.linearVelocity.y > 0f)
                         {
-                            m = m_rig.velocity;
+                            m = m_rig.linearVelocity;
                             m.y = 0f;
-                            m_rig.velocity = m;
+                            m_rig.linearVelocity = m;
                         }
                 }
                 else
                 {
-                    if (m_rig.velocity.y > 0f)
+                    if (m_rig.linearVelocity.y > 0f)
                     {
-                        m = m_rig.velocity;
+                        m = m_rig.linearVelocity;
                         m.y = 0f;
-                        m_rig.velocity = m;
+                        m_rig.linearVelocity = m;
                     }
                 }
             }
@@ -327,9 +327,9 @@ namespace JTools
              * Think of it like terminal velocity, if you drop an object it doesn't just keep accelerating until it punches a hole through the Earth, right?
             */
 
-            m = m_rig.velocity;
-            m.y = Mathf.Clamp(m.y - gravity * Time.deltaTime * (m_rig.velocity.y > 0f ? 1f : 1.25f), (!m_sliding) ? gravityCap : slideSpeedCap, Mathf.Infinity);
-            m_rig.velocity = m;
+            m = m_rig.linearVelocity;
+            m.y = Mathf.Clamp(m.y - gravity * Time.deltaTime * (m_rig.linearVelocity.y > 0f ? 1f : 1.25f), (!m_sliding) ? gravityCap : slideSpeedCap, Mathf.Infinity);
+            m_rig.linearVelocity = m;
 
             if (m_sliding)
                 isGrounded = false;
@@ -350,17 +350,17 @@ namespace JTools
             {
                 if (!player.inputComponent.lockInput)
                 {
-                    if (m_rig.velocity.y > 0f && player.inputComponent.inputData.releasedJump) //Whenever the player is in midair and going up, we allow them to halve their vertical speed by releasing the jump button.
+                    if (m_rig.linearVelocity.y > 0f && player.inputComponent.inputData.releasedJump) //Whenever the player is in midair and going up, we allow them to halve their vertical speed by releasing the jump button.
                     {
-                        m = m_rig.velocity;
-                        m.y -= m_rig.velocity.y * 0.5f;
-                        m_rig.velocity = m;
+                        m = m_rig.linearVelocity;
+                        m.y -= m_rig.linearVelocity.y * 0.5f;
+                        m_rig.linearVelocity = m;
                     }
                 }
 
                 if (antiGuttering)
                 {
-                    if ((m_lastPosition - transform.position).magnitude < 0.05f && m_rig.velocity.y <= 0f)
+                    if ((m_lastPosition - transform.position).magnitude < 0.05f && m_rig.linearVelocity.y <= 0f)
                     {
                         if (m_stuckTimer <= 0f)
                         {
@@ -380,7 +380,7 @@ namespace JTools
                 {
                     if (new Vector3(player.inputComponent.inputData.motionInput.x, 0f, player.inputComponent.inputData.motionInput.z).magnitude > 0f && !m_sliding && Vector3.Dot(m_hit.normal, movement) > 0f)
                     {
-                        if (Vector3.Angle(Vector3.up, m_hit.normal) < slopeAngle && m_rig.velocity.y > -2f && m_rig.velocity.y < 0f && m_hit.normal.y < 0.99f) //If we're not set to slide down the slope normally
+                        if (Vector3.Angle(Vector3.up, m_hit.normal) < slopeAngle && m_rig.linearVelocity.y > -2f && m_rig.linearVelocity.y < 0f && m_hit.normal.y < 0.99f) //If we're not set to slide down the slope normally
                             transform.position = new Vector3(transform.position.x, m_hit.point.y, transform.position.z);
                     }
                 }
@@ -395,9 +395,9 @@ namespace JTools
                  * ground, and this looks extremely ugly.
                 */
 
-                m = m_rig.velocity;
-                m.y = Mathf.Clamp(m_rig.velocity.y, (new Vector3(player.inputComponent.inputData.motionInput.x, 0f, player.inputComponent.inputData.motionInput.z).magnitude > 0f) ? -0.5f : 0f, Mathf.Infinity);
-                m_rig.velocity = m;
+                m = m_rig.linearVelocity;
+                m.y = Mathf.Clamp(m_rig.linearVelocity.y, (new Vector3(player.inputComponent.inputData.motionInput.x, 0f, player.inputComponent.inputData.motionInput.z).magnitude > 0f) ? -0.5f : 0f, Mathf.Infinity);
+                m_rig.linearVelocity = m;
 
             }
             ///
@@ -412,7 +412,7 @@ namespace JTools
             float accelVel = accelerate * Time.deltaTime; // Accelerated velocity in direction of movment
 
             Vector3 m_final = prevVelocity + accelDir * accelVel;
-            m_final.y = m_rig.velocity.y;
+            m_final.y = m_rig.linearVelocity.y;
 
             return m_final;
         }
@@ -457,22 +457,22 @@ namespace JTools
                                 {
                                     case (ImpactMotion_JumpSetting.normal):
 
-                                        m = m_rig.velocity;
+                                        m = m_rig.linearVelocity;
                                         m.y = jumpPower;
-                                        m_rig.velocity = m;
+                                        m_rig.linearVelocity = m;
                                         break;
 
                                     case (ImpactMotion_JumpSetting.enhanced):
-                                        m = m_rig.velocity;
+                                        m = m_rig.linearVelocity;
                                         m.y = jumpPower + ((isSprinting) ? jumpPower * 0.15f : 0f);  //Jumppower is scaled up if enhanced jumping is enabled.
-                                        m_rig.velocity = m;
+                                        m_rig.linearVelocity = m;
                                         break;
 
                                     case (ImpactMotion_JumpSetting.leaping):
   
-                                        m = m_rig.velocity;
+                                        m = m_rig.linearVelocity;
                                         m.y = jumpPower;  //Jumppower is scaled up if enhanced jumping is enabled.
-                                        m_rig.velocity = m;
+                                        m_rig.linearVelocity = m;
 
                                         if (isSprinting)
                                         {
@@ -481,9 +481,9 @@ namespace JTools
                                             m_applied = new Vector3(player.inputComponent.inputData.motionInput.x * sprintSpeed * 2f, 0f, player.inputComponent.inputData.motionInput.z * sprintSpeed * 2f);
                                             m_applied.y = jumpPower * 0.5f;
 
-                                            m = m_rig.velocity;
+                                            m = m_rig.linearVelocity;
                                             m +=  orientation *m_applied;  
-                                            m_rig.velocity = m;
+                                            m_rig.linearVelocity = m;
                                         }
                                         break;
                                 }
@@ -514,7 +514,7 @@ namespace JTools
             {
                 if (slidingOnSlopes)
                 {
-                    if (m_rig.velocity.y < 0f)
+                    if (m_rig.linearVelocity.y < 0f)
                     {
                         if (Vector3.Angle(Vector3.up, normal) > slopeAngle) //If sliding on slopes is enabled, we check to see if the current surface is too steep. If so, the player can no longer jump, and they are shunted down the slope. If the slope isn't too steep, the player is then allowed to jump.
                         {

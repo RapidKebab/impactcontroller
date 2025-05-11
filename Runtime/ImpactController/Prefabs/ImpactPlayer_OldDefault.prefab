@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 5082239074312438006}
   - component: {fileID: 1533897142348286589}
   - component: {fileID: 7439519253497224973}
-  - component: {fileID: 442010529607440305}
+  - component: {fileID: -7568340883356558078}
   m_Layer: 0
-  m_Name: ImpactPlayer_Default
+  m_Name: ImpactPlayer_OldDefault
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -55,7 +55,7 @@ MonoBehaviour:
   artFacesCam: 0
   playerRadius: 0.3
   playerHeight: 1.64
-  inputComponent: {fileID: 442010529607440305}
+  inputComponent: {fileID: -7568340883356558078}
   cameraComponent: {fileID: 1533897142348286589}
   motionComponent: {fileID: 7439519253497224973}
   addonComponents: []
@@ -248,7 +248,7 @@ MonoBehaviour:
   slidingOnSlopes: 1
   slopeAngle: 30
   crouchPercent: 0.4
---- !u!114 &442010529607440305
+--- !u!114 &-7568340883356558078
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -257,7 +257,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1335686271616534617}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46951d89f1309b14a99311ae6b22de47, type: 3}
+  m_Script: {fileID: 11500000, guid: eeb4d02a3968e084f8a93d876d4e00f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   owner: {fileID: 0}
@@ -269,16 +269,17 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   lockInput: 0
-  inputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  lookAction: Look
-  moveAction: Move
-  jumpAction: Jump
-  sprintAction: Sprint
-  crouchAction: Crouch
-  primaryAction: Attack
-  secondaryAction: Secondary
-  menuAction: Menu
-  interactAction: Interact
+  lookAxisX: Mouse X
+  lookAxisY: Mouse Y
+  movementStrafe: Horizontal
+  movementWalk: Vertical
+  keyCrouch: 306
+  keyJump: 32
+  keySprint: 304
+  keyMenu: 27
+  buttonPrimary: 0
+  buttonSecondary: 1
+  keyInteract: 101
 --- !u!1 &1337174760614567955
 GameObject:
   m_ObjectHideFlags: 0

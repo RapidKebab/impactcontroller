@@ -69,11 +69,11 @@ namespace JTools
             capsuleCollider.height = playerHeight;
             capsuleCollider.center = Vector3.up * playerHeight * 0.5f;
 
-            PhysicMaterial m_phy = new PhysicMaterial
+            PhysicsMaterial m_phy = new PhysicsMaterial
             {
                 dynamicFriction = 0f,
                 staticFriction = 0f,
-                frictionCombine = PhysicMaterialCombine.Minimum
+                frictionCombine = PhysicsMaterialCombine.Minimum
 
             };
 

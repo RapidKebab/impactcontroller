@@ -1,10 +1,10 @@
 {
   "name": "fdsw.jtools.impactcontroller",
-  "version": "1.0.0",
-  "displayName": "JTools - Impact Controller",
+  "version": "1.1.0",
+  "displayName": "Impact Controller Kaya Mod",
   "description": "A general purpose player controller combining both aspects of first-person and third-person, with the ability to switch between the two as you please.\n\nImpact's highly advanced modular structure makes it possible to expand your player however you need, whether it's making the game's input entirely built around a trackball, or working from a fixed camera perspective, you can go wherever you want!",
-  "unity": "2020.3",
-  "unityRelease": "0f1",
+  "unity": "6000.1",
+  "unityRelease": "2f1",
   "documentationUrl": "https://github.com/FeverDevJohnny/impactcontroller/blob/main/README.md",
   "changelogUrl": "https://example.com/changelog.html",
   "licensesUrl": "https://github.com/FeverDevJohnny/impactcontroller/blob/main/LICENSE.md",
@@ -15,9 +15,10 @@
     "Third Person"
   ],
   "author": {
-    "name": "Feverdream Johnny",
+    "name": "Feverdream Johnny, O. Kaya",
     "url": "https://www.unity3d.com"
   },
   "hideInEditor": false,
-  "type": "library"
+  "type": "library",
+  "_fingerprint": "0b3ad3eb7144d171674e2dc36b95c2387878be75"
 }

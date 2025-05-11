@@ -128,7 +128,7 @@ namespace JTools
 
 
             /// This snaps the player down to a surface if the conditions are just right. Needed on slopes to prevent the player from sliding off of a surface and floating down to the ground instead of, you know, walking down the slope like a normal human.
-            float snapDistance = (player.playerHeight * 0.5f) + Mathf.Clamp(m_rig.velocity.y, -1f, 0f); //How far down the player will search for snappable terrain.
+            float snapDistance = (player.playerHeight * 0.5f) + Mathf.Clamp(m_rig.linearVelocity.y, -1f, 0f); //How far down the player will search for snappable terrain.
             if (!isGrounded && movement.y < 0f) //If we're midair and we're also falling down.
             {
                 if (Physics.Raycast(transform.position + Vector3.up * player.capsuleCollider.height * 0.5f, Vector3.down, out m_hit, snapDistance, groundingLayers, QueryTriggerInteraction.Ignore)) //A raycast is fired below the player.
@@ -188,7 +188,7 @@ namespace JTools
 
 
 
-            m_rig.velocity = movement * Time.fixedDeltaTime * 60f;
+            m_rig.linearVelocity = movement * Time.fixedDeltaTime * 60f;
 
             ///
         }
