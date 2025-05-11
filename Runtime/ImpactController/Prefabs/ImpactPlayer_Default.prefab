@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1533897142348286589}
   - component: {fileID: 7439519253497224973}
   - component: {fileID: 442010529607440305}
+  - component: {fileID: 1385654921943162104}
   m_Layer: 0
   m_Name: ImpactPlayer_Default
   m_TagString: Player
@@ -58,7 +59,9 @@ MonoBehaviour:
   inputComponent: {fileID: 442010529607440305}
   cameraComponent: {fileID: 1533897142348286589}
   motionComponent: {fileID: 7439519253497224973}
-  addonComponents: []
+  addonComponents:
+  - {fileID: 1385654921943162104}
+  - {fileID: 0}
   lockFramerate: 1
   frameRate: 60
   capsuleCollider: {fileID: 0}
@@ -85,7 +88,7 @@ MonoBehaviour:
       m_Calls: []
   restrainCameraRotating: 0
   restrainCameraPositioning: 0
-  cameraSensitivity: 1
+  cameraSensitivity: 0.2
   screenshakeDecayFactor: 0.2
   verticalRestraint: {x: -90, y: 90}
   screenshake: 0
@@ -279,6 +282,30 @@ MonoBehaviour:
   secondaryAction: Secondary
   menuAction: Menu
   interactAction: Interact
+--- !u!114 &1385654921943162104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1335686271616534617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66d947c755c5fdf4bbfc4f7126f5e7dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  owner: {fileID: 0}
+  initialized: 0
+  enableSounds: 1
+  soundVolume: 1
+  walkSounds:
+  - {fileID: 8300000, guid: 794c78736d446694cb8f82b6acc41f3d, type: 3}
+  - {fileID: 8300000, guid: 5a797ecb4a714b94a8aae85069b99a55, type: 3}
+  - {fileID: 8300000, guid: 7f6bdfc048084a7409fe0a5c84727d77, type: 3}
+  - {fileID: 8300000, guid: b0390b5fb416e184496c401faad681f2, type: 3}
+  jumpingSound: {fileID: 8300000, guid: 9f8d6a39ba082464da5472aaa0403351, type: 3}
+  landingSound: {fileID: 8300000, guid: 2107fe5da028e694391acb525dc82402, type: 3}
+  overrideFootsteps: 0
 --- !u!1 &1337174760614567955
 GameObject:
   m_ObjectHideFlags: 0
