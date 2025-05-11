@@ -144,8 +144,6 @@ namespace JTools
 
             if (!player.inputComponent.lockInput)
             {
-
-
                 /// Dedicated to controlling viewbobbing and walkSounds.
                 if (player.motionComponent.isGrounded)
                 {

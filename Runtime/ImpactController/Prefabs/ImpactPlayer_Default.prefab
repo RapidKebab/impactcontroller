@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7439519253497224973}
   - component: {fileID: 442010529607440305}
   - component: {fileID: 1385654921943162104}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ImpactPlayer_Default
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ MonoBehaviour:
   motionComponent: {fileID: 7439519253497224973}
   addonComponents:
   - {fileID: 1385654921943162104}
-  lockFramerate: 1
+  lockFramerate: 0
   frameRate: 60
   capsuleCollider: {fileID: 0}
   soundComponent: {fileID: 0}
@@ -87,7 +87,7 @@ MonoBehaviour:
       m_Calls: []
   restrainCameraRotating: 0
   restrainCameraPositioning: 0
-  cameraSensitivity: 0.2
+  cameraSensitivity: 0.1
   screenshakeDecayFactor: 0.2
   verticalRestraint: {x: -90, y: 90}
   screenshake: 0
@@ -102,7 +102,7 @@ MonoBehaviour:
   cameraCrouchDrop: 1
   cameraLandDrop: 0.2
   lookTargetTrackingSpeed: 0.2
-  viewBobIntensity: 0.2
+  viewBobIntensity: 0.1
   viewBobStep: 0.5
   viewBobX:
     serializedVersion: 2
@@ -229,12 +229,12 @@ MonoBehaviour:
   jumpPower: 12
   groundingLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1
   crouchMode: 1
   sprintMode: 1
   jumpMode: 1
   crouchRate: 0.2
-  walkRate: 0.2
+  walkRate: 0.4
   stepHeight: 0.5
   smoothStepping: 1
   smoothPlayerBodyStepping: 1
@@ -317,7 +317,7 @@ GameObject:
   - component: {fileID: 1352007124570119575}
   - component: {fileID: 1383651856625117579}
   - component: {fileID: 1417357698832284093}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PlayerCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -415,7 +415,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1511621406499863036}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ArtRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
