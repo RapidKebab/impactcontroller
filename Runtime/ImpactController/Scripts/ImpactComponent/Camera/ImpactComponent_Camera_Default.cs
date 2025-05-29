@@ -137,9 +137,10 @@ namespace JTools
 
             // CAMERA MANAGEMENT
 
-            cameraOrigin.y = m_cameraOriginBaseHeight * (player.capsuleCollider.height / player.playerHeight) * ((player.motionComponent.isCrouching) ? cameraCrouchDrop : 1f);
+            
             Vector3 OffsetCamPos = (Quaternion.AngleAxis(player.playerCamera.transform.rotation.eulerAngles.y, Vector3.up)*thirdPersonCamOffset);
             cameraOrigin = OffsetCamPos*perspective+stockPosition;
+            cameraOrigin.y = m_cameraOriginBaseHeight * (player.capsuleCollider.height / player.playerHeight) * ((player.motionComponent.isCrouching) ? cameraCrouchDrop : 1f);
             //the above 2 messes are mine, they add the camera offset, I don't know why but it maximizes offset at 0.5 and it once again becomes 0 offset at 1 perspective.
 
             if (!player.inputComponent.lockInput)
